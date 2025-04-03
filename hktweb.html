@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOPE - Your Professional Doppelganger</title>
+    <style>
+        :root {
+            --primary: #D4AF37; /* Gold */
+            --secondary: #C9B037; /* Darker gold */
+            --accent: #B8860B; /* Dark goldenrod */
+            --light: #FFF8DC; /* Cream color */
+            --dark: #000000; /* Black */
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #B22222; /* Firebrick red */
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+            --red: #C41E3A; /* Red */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cinzel', serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--dark);
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--red);
+        }
+        
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--dark);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--dark);
+        }
+        
+        main {
+            margin-top: 80px;
+            padding: 2rem 0;
+        }
+        
+        .hero {
+            display: flex;
+            align-items: center;
+            padding: 3rem 0;
+        }
+        
+        .hero-content {
+            flex: 1;
+            padding-right: 2rem;
+        }
+        
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--light);
+        }
+        
+        .features {
+            padding: 4rem 0;
+            background-color: var(--red);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            left: 25%;
+            bottom: 0;
+            width: 50%;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: var(--dark);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .dashboard {
+            padding: 4rem 0;
+            background-color: var(--dark);
+        }
+        
+        .dashboard-container {
+            background-color: var(--dark);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
+            overflow: hidden;
+            border: 1px solid var(--primary);
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            background-color: var(--primary);
+            color: var(--dark);
+        }
+        
+        .dashboard-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .dashboard-controls {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .dashboard-tabs {
+            display: flex;
+            background-color: var(--dark);
+            border-bottom: 1px solid var(--primary);
+        }
+        
+        .dashboard-tab {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--primary);
+        }
+        
+        .dashboard-tab.active {
+            background-color: var(--dark);
+            border-bottom: 3px solid var(--red);
+        }
+        
+        .dashboard-content {
+            padding: 2rem;
+        }
+        
+        .widget-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .widget {
+            background-color: var(--dark);
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(212, 175, 55, 0.2);
+            padding: 1.5rem;
+            border-top: 4px solid var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        .widget-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            color: var(--primary);
+        }
+        
+        .widget-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+        
+        .widget-subtitle {
+            font-size: 0.9rem;
+            color: var(--primary);
+        }
+        
+        .chart-container {
+            background-color: var(--dark);
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(212, 175, 55, 0.2);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--primary);
+        }
+        
+        .ai-interface {
+            padding: 4rem 0;
+            background-color: var(--red);
+        }
+        
+        .chat-interface {
+            background-color: var(--dark);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
+            overflow: hidden;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--primary);
+        }
+        
+        .chat-header {
+            padding: 1rem;
+            background-color: var(--primary);
+            color: var(--dark);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            background-color: var(--success);
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+        
+        .message {
+            margin-bottom: 1.5rem;
+            display: flex;
+        }
+        
+        .message.user {
+            justify-content: flex-end;
+        }
+        
+        .message-content {
+            max-width: 70%;
+            padding: 1rem;
+            border-radius: 10px;
+        }
+        
+        .user .message-content {
+            background-color: var(--primary);
+            color: var(--dark);
+            border-top-right-radius: 0;
+        }
+        
+        .ai .message-content {
+            background-color: var(--red);
+            border-top-left-radius: 0;
+            color: var(--light);
+        }
+        
+        .message-time {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 0.5rem;
+        }
+        
+        .chat-input {
+            padding: 1rem;
+            border-top: 1px solid var(--primary);
+            display: flex;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid var(--primary);
+            border-radius: 5px;
+            margin-right: 1rem;
+            background-color: var(--dark);
+            color: var(--light);
+        }
+        
+        .settings {
+            padding: 4rem 0;
+            background-color: var(--dark);
+        }
+        
+        .settings-container {
+            background-color: var(--dark);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
+            padding: 2rem;
+            border: 1px solid var(--primary);
+        }
+        
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .settings-card {
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .settings-group {
+            margin-bottom: 2rem;
+        }
+        
+        .settings-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--light);
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--primary);
+            border-radius: 5px;
+            background-color: var(--dark);
+            color: var(--light);
+        }
+        
+        .toggle {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 3rem 0;
+            border-top: 1px solid var(--primary);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--red);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            text-decoration: none;
+            color: var(--light);
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--primary);
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+            }
+            
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 2rem;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+            }
+            
+            .nav-links li {
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <img src="C:\Users\User\Downloads\ChatGPT Image Apr 3, 2025, 12_11_07 PM.png" alt="DOPE Logo">
+                    DopeAI
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="#interface">AI Interface</a></li>
+                    <li><a href="#settings">Settings</a></li>
+                    <li><a href="#" class="btn btn-primary">Sign In</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero">
+                    <div class="hero-content">
+                        <h1>Your Professional AI Doppelganger</h1>
+                        <p>Train your AI to handle routine tasks, emails, and meetings. Let your digital twin do the work while you focus on what truly matters.</p>
+                        <a href="#" class="btn btn-primary">Get Started</a>
+                        <a href="#" class="btn btn-outline" style="margin-left: 10px;">How It Works</a>
+                    </div>
+                    <div class="hero-image">
+                        <img src="C:\Users\User\Downloads\ChatGPT Image Apr 3, 2025, 01_00_14 PM.png">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Powerful Features</h2>
+                </div>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📧</div>
+                        <h3 class="feature-title">Email Management</h3>
+                        <p>Your AI doppelganger can handle emails, sort them by priority, draft responses, and even send them with your approval.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📅</div>
+                        <h3 class="feature-title">Meeting Assistant</h3>
+                        <p>Let your AI attend routine meetings, take notes, create action items, and deliver summaries for your review.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <h3 class="feature-title">Document Creation</h3>
+                        <p>Generate reports, presentations, and other documents based on your previous work and preferences.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🧠</div>
+                        <h3 class="feature-title">Learning & Adaptation</h3>
+                        <p>Your AI continuously learns from your feedback to better match your style, tone, and decision-making process.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3 class="feature-title">Security & Privacy</h3>
+                        <p>Enterprise-grade security ensures your data and interactions remain confidential and protected.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3 class="feature-title">Performance Analytics</h3>
+                        <p>Track time saved, tasks completed, and productivity improvements with detailed analytics.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="dashboard" class="dashboard">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Your AI Dashboard</h2>
+                </div>
+                <div class="dashboard-container">
+                    <div class="dashboard-header">
+                        <div class="dashboard-title">Work Productivity Overview</div>
+                        <div class="dashboard-controls">
+                            <button class="btn btn-outline" style="border-color: var(--dark); color: var(--dark);">This Week</button>
+                            <button class="btn btn-outline" style="border-color: var(--dark); color: var(--dark);">Export</button>
+                        </div>
+                    </div>
+                    <div class="dashboard-tabs">
+                        <div class="dashboard-tab active">Overview</div>
+                        <div class="dashboard-tab">Emails</div>
+                        <div class="dashboard-tab">Meetings</div>
+                        <div class="dashboard-tab">Documents</div>
+                    </div>
+                    <div class="dashboard-content">
+                        <div class="widget-grid">
+                            <div class="widget">
+                                <div class="widget-title">
+                                    Time Saved
+                                    <span>📈</span>
+                                </div>
+                                <div class="widget-value">12.5 hrs</div>
+                                <div class="widget-subtitle">This week</div>
+                            </div>
+                            <div class="widget">
+                                <div class="widget-title">
+                                    Emails Handled
+                                    <span>📧</span>
+                                </div>
+                                <div class="widget-value">87</div>
+                                <div class="widget-subtitle">67% of total</div>
+                            </div>
+                            <div class="widget">
+                                <div class="widget-title">
+                                    Meetings Attended
+                                    <span>📅</span>
+                                </div>
+                                <div class="widget-value">9</div>
+                                <div class="widget-subtitle">4.5 hours saved</div>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <div class="widget-title">Weekly Productivity</div>
+                            <div style="height: 300px; background-color: var(--dark); border: 1px dashed var(--primary); border-radius: 5px; display: flex; justify-content: center; align-items: center; color: var(--primary);">
+                                [Productivity Chart Placeholder]
+                            </div>
+                        </div>
+                        <div class="widget-grid">
+                            <div class="widget">
+                                <div class="widget-title">
+                                    Next Actions
+                                    <span>⏭️</span>
+                                </div>
+                                <ul style="list-style: none;">
+                                    <li style="padding: 10px 0; border-bottom: 1px solid var(--primary);">
+                                        <div style="font-weight: 500; color: var(--light);">Review quarterly report draft</div>
+                                        <div style="font-size: 0.9rem; color: var(--primary);">Due tomorrow</div>
+                                    </li>
+                                    <li style="padding: 10px 0; border-bottom: 1px solid var(--primary);">
+                                        <div style="font-weight: 500; color: var(--light);">Prepare for client meeting</div>
+                                        <div style="font-size: 0.9rem; color: var(--primary);">Thursday, 2:00 PM</div>
+                                    </li>
+                                    <li style="padding: 10px 0;">
+                                        <div style="font-weight: 500; color: var(--light);">Respond to project proposal</div>
+                                        <div style="font-size: 0.9rem; color: var(--primary);">High priority</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="widget">
+                                <div class="widget-title">
+                                    Learning Progress
+                                    <span>🎓</span>
+                                </div>
+                                <div style="background-color: var(--dark); border: 1px solid var(--primary); height: 10px; border-radius: 5px; margin-bottom: 10px;">
+                                    <div style="background-color: var(--primary); width: 75%; height: 100%; border-radius: 5px;"></div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--light);">
+                                    <span>75% Match to Your Style</span>
+                                    <span>+12% this month</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="interface" class="ai-interface">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Your AI Interface</h2>
+                </div>
+                <div class="chat-interface">
+                    <div class="chat-header">
+                        <div class="status-indicator"></div>
+                        DOPE is active
+                    </div>
+                    <div class="chat-messages">
+                        <div class="message ai">
+                            <div class="message-content">
+                                <p>Good morning! I've prepared a summary of your upcoming day. You have 3 meetings scheduled and 12 new emails since yesterday. Would you like me to handle any of these for you?</p>
+                                <div class="message-time">9:00 AM</div>
+                            </div>
+                        </div>
+                        <div class="message user">
+                            <div class="message-content">
+                                <p>Can you handle the team standup and send me notes afterward?</p>
+                                <div class="message-time">9:02 AM</div>
+                            </div>
+                        </div>
+                        <div class="message ai">
+                            <div class="message-content">
+                                <p>I'll attend the 10:00 AM team standup meeting for you and provide a detailed summary with action items afterward. Would you like me to handle any of the new emails as well?</p>
+                                <div class="message-time">9:03 AM</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" placeholder="Message your AI doppelganger...">
+                        <button class="btn btn-primary">Send</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="settings" class="settings">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Configure Your AI</h2>
+                </div>
+                <div class="settings-container">
+                    <div class="settings-grid">
+                        <div class="settings-card">
+                            <div class="settings-group">
+                                <h3 class="settings-title">Communication Style</h3>
+                                <div class="form-group">
+                                    <label>Email Tone</label>
+                                    <select>
+                                        <option>Professional</option>
+                                        <option>Friendly</option>
+                                        <option>Concise</option>
+                                        <option>Detailed</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Response Length</label>
+                                    <select>
+                                        <option>Brief</option>
+                                        <option>Standard</option>
+                                        <option>Detailed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="settings-group">
+                                <h3 class="settings-title">Decision Making</h3>
+                                <div class="form-group">
+                                    <label>Authority Level</label>
+                                    <select>
+                                        <option>Drafts Only</option>
+                                        <option>Low Priority Decisions</option>
+                                        <option>Most Routine Decisions</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="settings-card">
+                            <div class="settings-group">
+                                <h3 class="settings-title">Automation Preferences</h3>
+                                <div class="form-group">
+                                    <label>Email Management</label>
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <span style="color: var(--light);">Automatically sort and flag emails</span>
+                                        <label class="toggle">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Meeting Attendance</label>
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <span style="color: var(--light);">Attend routine meetings</span>
+                                        <label class="toggle">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Document Generation</label>
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <span style="color: var(--light);">Create reports and presentations</span>
+                                        <label class="toggle">
+                                            <input type="checkbox">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button class="btn btn-primary">Save Preferences</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3 class="footer-title">DOPE</h3>
+                    <p style="color: var(--light);">Your professional AI doppelganger that learns to work just like you.</p>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-title">Resources</h3>
+                    <ul class="footer-links">
